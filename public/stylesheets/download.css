@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    align-items: center;
+    text-align: center;
+}
+
+.image {
+    height: 200px;
+    width: 360px;
+}
+
+.title {}
