@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const ytdl = require('ytdl-core')
 const app = express()
+const youtubedl = require('youtube-dl-exec')
 
 const path = require('path')
 
@@ -25,6 +26,24 @@ app.get('/downloads', (req, res) => {
         format: 'mp4'
     }).pipe(res)
 
+})
+
+app.get('/v2/downloads/', async (req, res) => {
+
+    const output = await youtubedl('https://youtu.be/gXNdCWXO8AM', {
+        dumpJson: true,
+        noWarnings: true,
+        noCallHome: true,
+        noCheckCertificate: true,
+        preferFreeFormats: true,
+        youtubeSkipDashManifest: true,
+        referer: 'https://youtu.be/gXNdCWXO8AM'
+})
+
+    let title = output.title
+    let thumbnail = output.thumbnails[4].url
+    let formats = output.formats
+    res.render('download', {title, thumbnail, formats})
 })
 
 // Listen to port 
