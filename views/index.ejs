@@ -7,15 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Video Downloader</title>
 
-    <link rel="stylesheet" href="/static/stylesheets/style.css">
+    <!-- <link rel="stylesheet" href="/static/stylesheets/style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.3/tailwind.min.css"
+        integrity="sha512-wl80ucxCRpLkfaCnbM88y4AxnutbGk327762eM9E/rRTvY/ZGAHWMZrYUq66VQBYMIYDFpDdJAOGSLyIPHZ2IQ=="
+        crossorigin="anonymous" />
 </head>
 
 <body>
-    <div class="container">
+    <div class="m-auto">
 
-        <h1>YouTube Video Downloader</h1>
-        <input type="text" class="URL-input" placeholder="Enter the URL...">
-        <input type="submit" value="Convert" class="submit">
+        <h1 class="my-5 text-red-700 font-bold text-2xl">YouTube Video Downloader</h1>
+        <input type="text" class="URL-input font-bold text-xl py-2 px-5 border mt-1" placeholder="Enter the URL...">
+        <input type="submit" value="Convert" class="submit py-3 px-6 bg-red-700 text-white font-bold">
     </div>
 
     <script src="/static/js/index.js"></script>
