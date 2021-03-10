@@ -1,13 +1,15 @@
 const express = require('express')
 const cors = require('cors')
 const ytdl = require('ytdl-core')
-const app = express()
 const youtubedl = require('youtube-dl-exec')
 const ffmpeg = require('ffmpeg-static')
+
+const app = express()
 
 const path = require('path')
 const cp = require('child_process');
 const readline = require('readline');
+const fs = require('fs')
 
 app.use(cors())
 app.set('views', __dirname + '/views');
@@ -22,7 +24,7 @@ async function getHDVid(ref) {
 
     let info = await ytdl.getInfo(ref)
     const title = info.player_response.videoDetails.title
-    console.log(title)
+
     // keeps track of the start time audio and video downloaded and merged
     const tracker = {
         start: Date.now(),
@@ -120,7 +122,7 @@ app.get('/', (req, res) => {
 
 app.get('/downloads', async (req, res) => {
     const URL = req.query.URL
-    // let info = await ytdl.getInfo(URL)
+    let info = await ytdl.getInfo(URL)
 
     // res.header('Content-Disposition', 'attachment; filename="video.mp4')
     // let format = ytdl.chooseFormat(info.formats, 140)
@@ -128,8 +130,15 @@ app.get('/downloads', async (req, res) => {
     // await ytdl(URL, {
     //     format
     // }).pipe(res)
-
+    let output = info.player_response.videoDetails.title
     getHDVid(URL)
+    console.log(output)
+
+    res.download(output + '.mkv', err => {
+        if (err) throw err
+        
+        fs.unlinkSync(output + '.mkv')
+    })
  
 
 })
